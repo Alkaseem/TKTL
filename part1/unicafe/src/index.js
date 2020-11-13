@@ -8,6 +8,8 @@ function Index() {
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
 
+  const all = good + neutral + bad;
+
   return (
     <div>
       <h1>Give feedback</h1>
@@ -15,7 +17,7 @@ function Index() {
       <button onClick={() => setNeutral(neutral + 1)}>neutral</button>
       <button onClick={() => setBad(bad + 1)}>bad</button>
 
-      <Statistics good={good} neutral={neutral} bad={bad} />
+      <Statistics good={good} neutral={neutral} bad={bad} all={all} />
     </div>
   );
 }

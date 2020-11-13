@@ -9,11 +9,9 @@ function statistics(props) {
           <p>Good: {props.good}</p>
           <p>Neutral: {props.neutral}</p>
           <p>Bad: {props.bad}</p>
-          <strong>All: {props.good + props.neutral + props.bad}</strong>
-          <p>Average: {(props.good + props.neutral + props.bad) / 3}</p>
-          <p>
-            Positve: {((props.good + props.neutral + props.bad) / 3) * 100}%
-          </p>{" "}
+          <strong>All: {props.all}</strong>
+          <p>Average: {(props.good - props.bad) / props.all}</p>
+          <p>Positve: {(props.all / 3) * 100}%</p>{" "}
         </>
       ) : (
         <p>No Feedback Given</p>
