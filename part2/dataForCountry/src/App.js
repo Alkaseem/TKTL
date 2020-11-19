@@ -18,15 +18,19 @@ function App() {
   };
 
   useEffect(() => {
+    const abc = new AbortController();
+
     const fetchData = async () => {
       const response = await axios.get(
-        `https://restcountries.eu/rest/v2/name/${findCountry}`
+        `https://restcountries.eu/rest/v2/name/${findCountry}`,
+        { signal: abc.signal }
       );
       setCountries(response.data);
     };
     if (isLoading) {
       fetchData();
     }
+    return () => abc.abort();
   }, [findCountry, isLoading]);
 
   const showOne = () => {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const API_KEY = "77798953dde8a4c290e26332071bd225";
+const API_KEY = "";
 
 function Weather({ countryCapital }) {
   const [weaher, setWeaher] = useState("");
@@ -15,11 +15,10 @@ function Weather({ countryCapital }) {
       );
       setWeaher(response.data);
     };
-    fetchWather(abc.signal);
+    fetchWather();
     return () => abc.abort();
   }, [countryCapital]);
 
-  console.log("weather: ", weaher);
   return (
     weaher && (
       <div>
