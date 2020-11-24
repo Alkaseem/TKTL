@@ -5,29 +5,17 @@ import ShowCountries from "./showCountries";
 import SearchFrom from "./searchForm";
 import ShowMore from "./showMore";
 
-// const API_KEY = "77798953dde8a4c290e26332071bd225";
-
 function App() {
   const [findCountry, setFindCountry] = useState("");
   const [countries, setCountries] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showMore, setShowMore] = useState(null);
-  // const [weaher, setWeaher] = useState([]);
 
   const handleSearchChange = (e) => {
     setFindCountry(e.target.value);
     setIsLoading(true);
     setShowMore(null);
   };
-
-  // const getWeather = async (countryCapital) => {
-  //   const response = await axios.get(
-  //     `http://api.weatherstack.com/current?access_key=${API_KEY}&query=${countryCapital}`
-  //     // `http://api.weatherstack.com/current?access_key=${API_KEY}&query=$Abuja`
-  //   );
-  //   console.log(response.data);
-  //   setWeaher(response.data);
-  // };
 
   useEffect(() => {
     const fetchData = async () => {
