@@ -1,34 +1,35 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const API_KEY = "";
+const API_KEY = process.env.API_KEY;
 
 function Weather({ countryCapital }) {
-  const [weaher, setWeaher] = useState("");
+  const [weather, setWeather] = useState([]);
 
   useEffect(() => {
+    console.log("HELLO");
     const abc = new AbortController();
     const fetchWather = async () => {
       const response = await axios.get(
         `http://api.weatherstack.com/current?access_key=${API_KEY}&query=${countryCapital}`,
         { signal: abc.signal }
       );
-      setWeaher(response.data);
+      setWeather(response.data);
     };
     fetchWather();
     return () => abc.abort();
   }, [countryCapital]);
 
   return (
-    weaher && (
+    weather && (
       <div>
         <p>
-          <strong>Tempreture:</strong> {weaher.current.temperature} Celcius
+          <strong>Tempreture:</strong> {weather.current.temperature} Celcius
         </p>
-        <img src={weaher.current.weather_icons[0]} alt="weaher" />
+        <img src={weather.current.weather_icons[0]} alt="weaher" />
         <p>
-          <strong>Wind:</strong> {weaher.current.wind_speed} mph direction{" "}
-          {weaher.current.wind_dir}
+          <strong>Wind:</strong> {weather.current.wind_speed} mph direction{" "}
+          {weather.current.wind_dir}
         </p>
       </div>
     )

@@ -1,13 +1,29 @@
 import React, { useState } from "react";
 
-function PersonForm({ setPersons, persons }) {
+import personService from "./services";
+
+function PersonForm({ setPersons, persons, updateNumber, setMessage }) {
   const [newName, setName] = useState("");
   const [newNumber, setNewNumber] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    let newNames = { name: newName, number: newNumber };
-    setPersons(persons.concat(newNames));
+    let newObj = { name: newName, number: newNumber };
+    const person = persons.find((p) => p.name === newObj.name);
+    let editing = false;
+    if (person && person.name === newObj.name) {
+      const option = window.confirm(
+        `${person.name} is already added to the phonebook, replace the old number with new a number`
+      );
+      editing = option;
+    }
+    if (editing) {
+      updateNumber(newObj);
+    } else {
+      const newPerson = await personService.addPerson(newObj);
+      setPersons(persons.concat(newPerson));
+      setMessage({ alert: "success", msg: `Added ${newPerson.name}` });
+    }
     setName("");
     setNewNumber("");
   };
