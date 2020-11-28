@@ -20,9 +20,14 @@ function PersonForm({ setPersons, persons, updateNumber, setMessage }) {
     if (editing) {
       updateNumber(newObj);
     } else {
-      const newPerson = await personService.addPerson(newObj);
-      setPersons(persons.concat(newPerson));
-      setMessage({ alert: "success", msg: `Added ${newPerson.name}` });
+      const response = await personService.addPerson(newObj);
+      console.log("DATA", response);
+      if (response.status === 200) {
+        setPersons(persons.concat(response.data));
+        setMessage({ alert: "success", msg: `Added ${newObj.name}` });
+      } else {
+        setMessage({ alert: "error", msg: response.data.error });
+      }
     }
     setName("");
     setNewNumber("");
